@@ -1,4 +1,4 @@
-package com.teamfillin.fillin.domain.user;
+package com.teamfillin.fillin.domain.account;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -6,11 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "filiin_user")
-public class User {
+public class Account {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,14 +20,13 @@ public class User {
 	@Column(length = 500)
 	private String refreshToken;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private Long userNo;
 
-	protected User() {
+	protected Account() {
 	}
 
-	public User(Long no, SocialInfo socialInfo, String refreshToken, Long userNo) {
-		this.no = no;
+	public Account(SocialInfo socialInfo, String refreshToken, Long userNo) {
 		this.socialInfo = socialInfo;
 		this.refreshToken = refreshToken;
 		this.userNo = userNo;
