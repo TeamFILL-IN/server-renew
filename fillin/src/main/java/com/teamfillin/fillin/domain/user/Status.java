@@ -1,2 +1,5 @@
-package com.teamfillin.fillin.domain.user;public enum Status {
+package com.teamfillin.fillin.domain.user;
+
+public enum Status {
+	ACTIVE, DELETED;
 }
