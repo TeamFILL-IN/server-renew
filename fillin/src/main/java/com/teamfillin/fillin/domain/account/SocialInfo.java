@@ -10,11 +10,11 @@ import javax.persistence.Enumerated;
 @Embeddable
 public class SocialInfo {
 
-	@Column(nullable = false, length = 100, unique = true)
+	@Column(nullable = false, length = 100)
 	private String socialId;
 
 	@Enumerated(value = EnumType.STRING)
-	@Column(nullable = false, length = 10, unique = true)
+	@Column(nullable = false, length = 10)
 	private SocialType socialType;
 
 	protected SocialInfo() {
