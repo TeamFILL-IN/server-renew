@@ -1,36 +1,36 @@
 package com.teamfillin.fillin.domain.reactionHistory;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import com.teamfillin.fillin.domain.common.BaseTimeEntity;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
-public class ReactionHistory {
+@Table(
+	name = "reaction_history",
+	indexes = {
+		@Index(name = "idx_unique_01", columnList = "userNo, targetNo, targetType")
+	}
+)
+public class ReactionHistory extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long no;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private Long userNo;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private Long targetNo;
 
-	@Column(nullable = false, length = 50, unique = true)
+	@Column(nullable = false, length = 50)
 	private TargetType targetType;
-
-	@CreatedDate
-	private LocalDateTime createdAt;
 
 	protected ReactionHistory() {
 	}
