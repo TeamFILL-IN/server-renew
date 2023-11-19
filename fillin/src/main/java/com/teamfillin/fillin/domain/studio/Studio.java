@@ -2,6 +2,8 @@ package com.teamfillin.fillin.domain.studio;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,6 +33,10 @@ public class Studio {
 
 	@Column(length = 500)
 	private String site;
+
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 10)
+	private StudioStatus status;
 
 	protected Studio() {
 	}
