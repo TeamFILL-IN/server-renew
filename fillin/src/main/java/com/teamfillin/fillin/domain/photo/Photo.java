@@ -31,7 +31,7 @@ public class Photo extends BaseTimeEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 10)
-	private Status status;
+	private PhotoStatus status;
 
 	protected Photo() {
 	}
