@@ -25,7 +25,7 @@ public class User {
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 10)
-	private Status status;
+	private UserStatus status;
 
 	protected User() {
 	}
@@ -33,6 +33,6 @@ public class User {
 	public User(String nickname, String profileImagePath) {
 		this.nickname = nickname;
 		this.profileImagePath = profileImagePath;
-		this.status = Status.ACTIVE;
+		this.status = UserStatus.ACTIVE;
 	}
 }
