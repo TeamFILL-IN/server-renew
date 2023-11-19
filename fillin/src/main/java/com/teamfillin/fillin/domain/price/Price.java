@@ -19,7 +19,7 @@ public class Price {
 	@Column(length = 100)
 	private String name;
 
-	private Integer price;
+	private Integer amount;
 
 	protected Price() {
 	}
