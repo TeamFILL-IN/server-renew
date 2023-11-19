@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.Builder;
+
 @Entity
 public class Studio {
 
@@ -41,7 +43,9 @@ public class Studio {
 	protected Studio() {
 	}
 
-	public Studio(String name, String address, String tel, Double latitude, Double longitude, String etc, String site) {
+	@Builder
+	private Studio(String name, String address, String tel, Double latitude, Double longitude,
+		String etc, String site, StudioStatus status) {
 		this.name = name;
 		this.address = address;
 		this.tel = tel;
@@ -49,5 +53,6 @@ public class Studio {
 		this.longitude = longitude;
 		this.etc = etc;
 		this.site = site;
+		this.status = status;
 	}
 }
