@@ -6,8 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 @Entity
+@Table(
+	name = "account",
+	indexes = {
+		@Index(name = "idx_unique_01", columnList = "socialType, socialId")
+	}
+)
 public class Account {
 
 	@Id
@@ -20,7 +28,7 @@ public class Account {
 	@Column(length = 500)
 	private String refreshToken;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private Long userNo;
 
 	protected Account() {
