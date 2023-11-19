@@ -22,7 +22,7 @@ public class RunningTime {
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private Day dayOfWeek;
+	private DayOfWeek dayOfWeek;
 
 	private LocalDateTime startAt;
 
