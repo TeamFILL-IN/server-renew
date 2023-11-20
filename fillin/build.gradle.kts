@@ -1,11 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+// versions
+val guavaVersion: String by properties
+
 plugins {
     java
     id("org.springframework.boot") version "2.7.17"
     id("io.spring.dependency-management") version "1.0.15.RELEASE"
     kotlin("plugin.spring") apply true
     kotlin("jvm") apply true
+
 }
 
 group = "com.teamfillin"
@@ -34,6 +38,9 @@ dependencies {
     runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // guava
+    implementation("com.google.guava:guava:$guavaVersion")
 
     // kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
