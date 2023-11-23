@@ -4,6 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.util.StringUtils;
 
+import lombok.Builder;
+
 public class FillinException extends RuntimeException {
 	@NotNull
 	protected final FillinErrorCode errorCode;
@@ -21,6 +23,7 @@ public class FillinException extends RuntimeException {
 		this.log = null;
 	}
 
+	@Builder
 	private FillinException(@NotNull FillinErrorCode errorCode, @Nullable String message, @Nullable String log) {
 		super(makeMessage(errorCode, message));
 		this.errorCode = errorCode;
@@ -30,10 +33,6 @@ public class FillinException extends RuntimeException {
 
 	public static FillinException from(@NotNull FillinErrorCode errorCode) {
 		return new FillinException(errorCode);
-	}
-
-	public static FillinExceptionBuilder builder() {
-		return new FillinExceptionBuilder();
 	}
 
 	private static String makeMessage(@NotNull FillinErrorCode errorCode, @Nullable String detailMessage) {
@@ -61,38 +60,5 @@ public class FillinException extends RuntimeException {
 			: StringUtils.hasText(errorCode.defaultMessage())
 			? errorCode.name() + ": " + errorCode.defaultMessage()
 			: errorCode.name();
-	}
-
-	public static class FillinExceptionBuilder {
-		private FillinErrorCode fillinErrorCode;
-		private String message;
-		private String log;
-
-		private FillinExceptionBuilder() {
-		}
-
-		public FillinExceptionBuilder errorCode(@NotNull final FillinErrorCode errorCode) {
-			this.fillinErrorCode = errorCode;
-			return this;
-		}
-
-		public FillinExceptionBuilder message(@Nullable String message) {
-			this.message = message;
-			return this;
-		}
-
-		public FillinExceptionBuilder log(@Nullable String log) {
-			this.log = log;
-			return this;
-		}
-
-		public FillinException build() {
-			assert fillinErrorCode != null;
-			return new FillinException(
-				fillinErrorCode,
-				StringUtils.hasText(message) ? message : fillinErrorCode.defaultMessage(),
-				log
-			);
-		}
 	}
 }
