@@ -14,7 +14,7 @@ import com.teamfillin.fillin.domain.common.BaseTimeEntity;
 @Table(
 	name = "reaction_history",
 	indexes = {
-		@Index(name = "idx_unique_02", columnList = "userNo, targetNo, targetType")
+		@Index(name = "ux_reaction_user_and_target", columnList = "userNo, targetNo, targetType")
 	}
 )
 public class ReactionHistory extends BaseTimeEntity {

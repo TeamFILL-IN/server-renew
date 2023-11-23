@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(
 	name = "account",
 	indexes = {
-		@Index(name = "idx_unique_01", columnList = "socialType, socialId")
+		@Index(name = "ux_account_social_info", columnList = "socialType, socialId")
 	}
 )
 public class Account {
