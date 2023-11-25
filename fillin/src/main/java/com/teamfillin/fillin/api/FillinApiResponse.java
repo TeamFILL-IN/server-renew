@@ -3,8 +3,10 @@ package com.teamfillin.fillin.api;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.teamfillin.fillin.FillinErrorCode;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FillinApiResponse {
@@ -32,6 +34,12 @@ public class FillinApiResponse {
 		this.message = message;
 	}
 
+	public static FillinApiResponse failure(@NotNull FillinErrorCode errorCode) {
+		return StringUtils.hasText(errorCode.defaultMessage())
+			? failure(errorCode.status(), errorCode.defaultMessage())
+			: new FillinApiResponse(errorCode.status().value(), false);
+	}
+
 	public static FillinApiResponse failure(@NotNull HttpStatus httpStatus, @NotNull String message) {
 		return new FillinApiResponse(httpStatus.value(), false, null, message);
 	}
@@ -42,6 +50,10 @@ public class FillinApiResponse {
 
 	public static FillinApiResponse success(@NotNull HttpStatus httpStatus) {
 		return new FillinApiResponse(httpStatus.value(), true);
+	}
+
+	public static FillinApiResponse success(@NotNull Object data) {
+		return FillinApiResponse.success(HttpStatus.OK, data);
 	}
 
 	public static FillinApiResponse success(@NotNull HttpStatus httpStatus, @NotNull Object data) {
