@@ -12,7 +12,10 @@ import javax.persistence.Table;
 import lombok.Builder;
 
 @Entity
+<<<<<<< HEAD:fillin/src/main/java/com/teamfillin/fillin/domain/studio/StudioEntity.java
 @Table(name = "studio")
+=======
+>>>>>>> 42369c1 (Entity postfix 추가):fillin/src/main/java/com/teamfillin/fillin/domain/studio/Studio.java
 public class StudioEntity {
 
 	@Id
