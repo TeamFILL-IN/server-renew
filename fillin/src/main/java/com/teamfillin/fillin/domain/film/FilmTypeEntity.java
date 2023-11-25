@@ -7,27 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Film {
+public class FilmTypeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long no;
 
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false, length = 50)
 	private String name;
 
-	@Column(nullable = false)
-	private Long typeNo;
-
-	@Column(nullable = false)
-	private Long companyNo;
-
-	protected Film() {
-	}
-
-	public Film(String name, Long typeNo, Long companyNo) {
-		this.name = name;
-		this.typeNo = typeNo;
-		this.companyNo = companyNo;
+	protected FilmTypeEntity() {
 	}
 }

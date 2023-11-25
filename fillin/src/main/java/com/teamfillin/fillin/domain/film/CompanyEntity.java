@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Company {
+public class CompanyEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +16,6 @@ public class Company {
 	@Column(nullable = false, length = 50)
 	private String name;
 
-	protected Company() {
+	protected CompanyEntity() {
 	}
 }

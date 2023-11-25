@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class RunningTime {
+public class RunningTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,6 @@ public class RunningTime {
 
 	private LocalDateTime endAt;
 
-	protected RunningTime() {
+	protected RunningTimeEntity() {
 	}
 }

@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import lombok.Builder;
 
 @Entity
-public class Studio {
+public class StudioEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +40,11 @@ public class Studio {
 	@Column(nullable = false, length = 10)
 	private StudioStatus status;
 
-	protected Studio() {
+	protected StudioEntity() {
 	}
 
 	@Builder
-	private Studio(String name, String address, String tel, Double latitude, Double longitude,
+	private StudioEntity(String name, String address, String tel, Double latitude, Double longitude,
 		String etc, String site, StudioStatus status) {
 		this.name = name;
 		this.address = address;
