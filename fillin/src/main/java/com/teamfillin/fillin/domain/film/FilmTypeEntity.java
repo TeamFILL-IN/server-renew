@@ -8,8 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+<<<<<<< HEAD
 
 import org.jetbrains.annotations.NotNull;
+=======
+>>>>>>> ce7b2c8 (entity 에 table name 적용)
 
 @Entity
 @Table(name = "film_type")
