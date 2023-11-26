@@ -7,10 +7,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.teamfillin.fillin.domain.common.BaseTimeEntity;
 
 @Entity
+@Table(name = "photo")
 public class PhotoEntity extends BaseTimeEntity {
 
 	@Id
