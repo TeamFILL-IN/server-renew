@@ -16,7 +16,7 @@ public class AccountRetriever {
 	public Account retrieve(@NotNull SocialType socialType, @NotNull String socialId) {
 		return accountRepository.findAccountBySocialInfo(AccountEntity.SocialInfo.from(socialType, socialId))
 			.map(Account::from)
-			.orElseThrow();
+			.orElseThrow(AccountExceptionHandler::notFound);
 	}
 
 	@Nullable

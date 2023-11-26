@@ -14,7 +14,7 @@ public class UserRetriever {
 
 	@NotNull
 	public User retrieve(long no) {
-		final UserEntity userEntity = userRepository.findById(no).orElseThrow();
+		final UserEntity userEntity = userRepository.findById(no).orElseThrow(UserExceptionHandler::notFound);
 		return User.from(userEntity);
 	}
 }
