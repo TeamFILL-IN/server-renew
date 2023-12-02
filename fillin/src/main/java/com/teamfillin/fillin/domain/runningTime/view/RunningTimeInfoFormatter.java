@@ -1,12 +1,11 @@
-package com.teamfillin.fillin.domain.studio.view;
+package com.teamfillin.fillin.domain.runningTime.view;
 
 import com.teamfillin.fillin.domain.runningTime.RunningTime;
 
-public abstract class RunningTimeInfoFormatter {
+abstract class RunningTimeInfoFormatter {
 
 	protected static final String SPACE = " ";
 	protected static final String DASH = " - ";
-	protected static final String LINE_BREAK = "\n";
 
 	protected final RunningTime runningTime;
 

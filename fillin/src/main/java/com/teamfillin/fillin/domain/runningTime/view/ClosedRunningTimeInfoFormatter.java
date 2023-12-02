@@ -1,15 +1,15 @@
-package com.teamfillin.fillin.domain.studio.view;
+package com.teamfillin.fillin.domain.runningTime.view;
 
 import com.teamfillin.fillin.domain.runningTime.RunningTime;
 
-public class ClosedRunningTimeInfoFormatter extends RunningTimeInfoFormatter {
+class ClosedRunningTimeInfoFormatter extends RunningTimeInfoFormatter {
 
-	protected ClosedRunningTimeInfoFormatter(RunningTime runningTime) {
+	ClosedRunningTimeInfoFormatter(RunningTime runningTime) {
 		super(runningTime);
 	}
 
 	@Override
 	public String format() {
-		return null;
+		return runningTime.getDayOfWeek() + SPACE + runningTime.getOperationStatus().getValue();
 	}
 }

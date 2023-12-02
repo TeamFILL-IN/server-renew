@@ -1,15 +1,19 @@
-package com.teamfillin.fillin.domain.studio.view;
+package com.teamfillin.fillin.domain.runningTime.view;
 
 import com.teamfillin.fillin.domain.runningTime.RunningTime;
 
-public class BreakTimeRunningTimeInfoFormatter extends RunningTimeInfoFormatter {
+class BreakTimeRunningTimeInfoFormatter extends RunningTimeInfoFormatter {
 
-	protected BreakTimeRunningTimeInfoFormatter(RunningTime runningTime) {
+	BreakTimeRunningTimeInfoFormatter(RunningTime runningTime) {
 		super(runningTime);
 	}
 
 	@Override
 	public String format() {
-		return null;
+		return runningTime.getOperationStatus().getValue()
+			+ SPACE
+			+ runningTime.getStartAt()
+			+ DASH
+			+ runningTime.getEndAt();
 	}
 }
