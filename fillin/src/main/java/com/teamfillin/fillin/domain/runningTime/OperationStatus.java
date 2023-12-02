@@ -1,6 +1,6 @@
 package com.teamfillin.fillin.domain.runningTime;
 
-public enum BusinessStatus {
+public enum OperationStatus {
 
 	OPEN("운영"),
 	CLOSED("휴무"),
@@ -10,7 +10,19 @@ public enum BusinessStatus {
 
 	private final String value;
 
-	BusinessStatus(String value) {
+	OperationStatus(String value) {
 		this.value = value;
+	}
+
+	public boolean isBreakTime() {
+		return this == BREAK_TIME;
+	}
+
+	public boolean isClosed() {
+		return this == CLOSED;
+	}
+
+	public String getValue() {
+		return value;
 	}
 }
