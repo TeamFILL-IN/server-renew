@@ -26,10 +26,34 @@ public class RunningTimeEntity {
 	@Column(nullable = false)
 	private DayOfWeek dayOfWeek;
 
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private OperationStatus operationStatus;
+
 	private LocalDateTime startAt;
 
 	private LocalDateTime endAt;
 
 	protected RunningTimeEntity() {
+	}
+
+	public Long getStudioNo() {
+		return studioNo;
+	}
+
+	public DayOfWeek getDayOfWeek() {
+		return dayOfWeek;
+	}
+
+	public OperationStatus getOperationStatus() {
+		return operationStatus;
+	}
+
+	public LocalDateTime getStartAt() {
+		return startAt;
+	}
+
+	public LocalDateTime getEndAt() {
+		return endAt;
 	}
 }
