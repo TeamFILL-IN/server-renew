@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "fillin_user")
-public class User {
+public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,10 @@ public class User {
 	@Column(nullable = false, length = 10)
 	private UserStatus status;
 
-	protected User() {
+	protected UserEntity() {
 	}
 
-	public User(String nickname, String profileImagePath) {
+	public UserEntity(String nickname, String profileImagePath) {
 		this.nickname = nickname;
 		this.profileImagePath = profileImagePath;
 		this.status = UserStatus.ACTIVE;

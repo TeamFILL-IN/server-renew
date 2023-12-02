@@ -1,58 +1,98 @@
 package com.teamfillin.fillin.domain.studio;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.Objects;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 
-@Entity
 public class Studio {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long no;
+	private final long no;
+	private final String name;
+	private final String address;
+	private final String tel;
+	private final StudioLocation location;
+	private final String etc;
+	private final String site;
+	private final StudioStatus status;
 
-	@Column(nullable = false, length = 50)
-	private String name;
-
-	@Column(length = 500)
-	private String address;
-
-	@Column(length = 50)
-	private String tel;
-
-	private Double latitude;
-
-	private Double longitude;
-
-	@Column(columnDefinition = "TEXT")
-	private String etc;
-
-	@Column(length = 500)
-	private String site;
-
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, length = 10)
-	private StudioStatus status;
-
-	protected Studio() {
-	}
-
-	@Builder
-	private Studio(String name, String address, String tel, Double latitude, Double longitude,
-		String etc, String site, StudioStatus status) {
+	@Builder(access = AccessLevel.PACKAGE)
+	private Studio(long no, String name, String address, String tel, StudioLocation location, String etc,
+		String site, StudioStatus status) {
+		this.no = no;
 		this.name = name;
 		this.address = address;
 		this.tel = tel;
-		this.latitude = latitude;
-		this.longitude = longitude;
+		this.location = location;
 		this.etc = etc;
 		this.site = site;
 		this.status = status;
+	}
+
+	public static Studio from(StudioEntity studioEntity) {
+		StudioLocation location = StudioLocation.builder()
+			.longitude(studioEntity.getLongitude())
+			.latitude(studioEntity.getLatitude())
+			.build();
+		return Studio.builder()
+			.no(studioEntity.getNo())
+			.name(studioEntity.getName())
+			.address(studioEntity.getAddress())
+			.tel(studioEntity.getTel())
+			.location(location)
+			.etc(studioEntity.getEtc())
+			.site(studioEntity.getSite())
+			.status(studioEntity.getStatus())
+			.build();
+	}
+
+	public long getNo() {
+		return no;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public String getEtc() {
+		return etc;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public double getLatitude() {
+		return location.getLatitude();
+	}
+
+	public double getLongitude() {
+		return location.getLongitude();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Studio studio = (Studio)o;
+		return no == studio.no && Objects.equals(name, studio.name) && Objects.equals(address,
+			studio.address) && Objects.equals(tel, studio.tel) && Objects.equals(location,
+			studio.location) && Objects.equals(etc, studio.etc) && Objects.equals(site, studio.site)
+			&& status == studio.status;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(no, name, address, tel, location, etc, site, status);
 	}
 }

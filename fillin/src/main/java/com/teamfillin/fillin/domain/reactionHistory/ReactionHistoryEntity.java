@@ -17,7 +17,7 @@ import com.teamfillin.fillin.domain.common.BaseTimeEntity;
 		@Index(name = "ux_reaction_user_and_target", columnList = "userNo, targetNo, targetType")
 	}
 )
-public class ReactionHistory extends BaseTimeEntity {
+public class ReactionHistoryEntity extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,10 +32,10 @@ public class ReactionHistory extends BaseTimeEntity {
 	@Column(nullable = false, length = 50)
 	private TargetType targetType;
 
-	protected ReactionHistory() {
+	protected ReactionHistoryEntity() {
 	}
 
-	public ReactionHistory(Long userNo, Long targetNo, TargetType targetType) {
+	public ReactionHistoryEntity(Long userNo, Long targetNo, TargetType targetType) {
 		this.userNo = userNo;
 		this.targetNo = targetNo;
 		this.targetType = targetType;

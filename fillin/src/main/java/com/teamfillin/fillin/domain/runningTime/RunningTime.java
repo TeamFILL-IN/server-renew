@@ -1,33 +1,51 @@
 package com.teamfillin.fillin.domain.runningTime;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
 public class RunningTime {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long no;
+	private final long studioNo;
+	private final String dayOfWeek;
+	private final OperationStatus operationStatus;
+	private final LocalTime startAt;
+	private final LocalTime endAt;
 
-	@Column(nullable = false)
-	private Long studioNo;
+	public RunningTime(long studioNo, String dayOfWeek, OperationStatus operationStatus, LocalTime startAt,
+		LocalTime endAt) {
+		this.studioNo = studioNo;
+		this.dayOfWeek = dayOfWeek;
+		this.operationStatus = operationStatus;
+		this.startAt = startAt;
+		this.endAt = endAt;
+	}
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private DayOfWeek dayOfWeek;
+	public static RunningTime from(RunningTimeEntity runningTimeEntity) {
+		return new RunningTime(
+			runningTimeEntity.getStudioNo(),
+			runningTimeEntity.getDayOfWeek().getValue(),
+			runningTimeEntity.getOperationStatus(),
+			runningTimeEntity.getStartAt().toLocalTime(),
+			runningTimeEntity.getEndAt().toLocalTime()
+		);
+	}
 
-	private LocalDateTime startAt;
+	public boolean isBetween(LocalTime now) {
+		return startAt.isBefore(now) && endAt.isAfter(now);
+	}
 
-	private LocalDateTime endAt;
+	public String getDayOfWeek() {
+		return dayOfWeek;
+	}
 
-	protected RunningTime() {
+	public OperationStatus getOperationStatus() {
+		return operationStatus;
+	}
+
+	public LocalTime getStartAt() {
+		return startAt;
+	}
+
+	public LocalTime getEndAt() {
+		return endAt;
 	}
 }

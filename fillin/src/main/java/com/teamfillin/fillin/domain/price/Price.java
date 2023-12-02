@@ -1,26 +1,43 @@
 package com.teamfillin.fillin.domain.price;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.Objects;
 
-@Entity
 public class Price {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long no;
+	private final long studioNo;
+	private final String name;
+	private final int amount;
 
-	@Column(nullable = false)
-	private Long studioNo;
+	private Price(long studioNo, String name, int amount) {
+		this.studioNo = studioNo;
+		this.name = name;
+		this.amount = amount;
+	}
 
-	@Column(length = 100)
-	private String name;
+	public static Price from(PriceEntity priceEntity) {
+		return new Price(priceEntity.getStudioNo(), priceEntity.getName(), priceEntity.getAmount());
+	}
 
-	private Integer amount;
+	public String getName() {
+		return name;
+	}
 
-	protected Price() {
+	public int getAmount() {
+		return amount;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Price price = (Price)o;
+		return studioNo == price.studioNo && amount == price.amount && Objects.equals(name, price.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(studioNo, name, amount);
 	}
 }
