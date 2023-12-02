@@ -1,6 +1,0 @@
-
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¬Äº­ûÿÿÿÿ
-A
-java:S1068"+Remove this unused "startAt" private field.(ÿé²¥
->
-java:S1068")Remove this unused "endAt" private field.(ĞÈÚ 
