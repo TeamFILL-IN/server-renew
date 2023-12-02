@@ -40,7 +40,7 @@ public class StudioEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 10)
-	private StudioStatus status;
+	private StudioStatus status; // studio 가 더 이상 장사를 하지 않는건지 판단하는 경우에만 필요할듯
 
 	protected StudioEntity() {
 	}
