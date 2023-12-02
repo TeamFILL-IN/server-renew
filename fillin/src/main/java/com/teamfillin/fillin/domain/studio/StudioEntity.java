@@ -57,4 +57,40 @@ public class StudioEntity {
 		this.site = site;
 		this.status = status;
 	}
+
+	public Long getNo() {
+		return no;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public String getEtc() {
+		return etc;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public StudioStatus getStatus() {
+		return status;
+	}
 }
