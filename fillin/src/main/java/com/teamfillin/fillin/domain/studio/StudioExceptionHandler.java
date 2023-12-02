@@ -1,2 +1,13 @@
-package com.teamfillin.fillin.domain.studio;public class StudioExceptionHandler {
+package com.teamfillin.fillin.domain.studio;
+
+import com.teamfillin.fillin.FillinException;
+
+class StudioExceptionHandler {
+
+	private StudioExceptionHandler() {
+	}
+
+	public static FillinException notFount() {
+		throw FillinException.from(StudioErrorCode.E404_STUDIO_NOT_FOUNT);
+	}
 }
