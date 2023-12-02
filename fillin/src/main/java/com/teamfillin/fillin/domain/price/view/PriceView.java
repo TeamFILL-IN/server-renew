@@ -1,4 +1,4 @@
-package com.teamfillin.fillin.domain.studio.view;
+package com.teamfillin.fillin.domain.price.view;
 
 import java.util.List;
 import java.util.StringJoiner;
@@ -18,6 +18,11 @@ public class PriceView {
 		this.values = values;
 	}
 
+	/**
+	 * 기존 price 가 TEXT 로 들어가 있었기 때문에 응답 형식이 너무 자유로움.
+	 * 어느정도 틀을 잡아둘 필요 있음
+	 * @return "컬러 4000\n 흑백 8000" or "7500" 등
+	 */
 	@Nullable
 	public String getPriceInfo() {
 		if (values.isEmpty()) {
