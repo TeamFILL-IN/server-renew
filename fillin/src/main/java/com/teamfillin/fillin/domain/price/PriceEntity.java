@@ -25,4 +25,16 @@ public class PriceEntity {
 
 	protected PriceEntity() {
 	}
+
+	public Long getStudioNo() {
+		return studioNo;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Integer getAmount() {
+		return amount;
+	}
 }
