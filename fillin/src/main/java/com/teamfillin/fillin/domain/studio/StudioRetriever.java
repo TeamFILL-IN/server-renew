@@ -1,7 +1,6 @@
 package com.teamfillin.fillin.domain.studio;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -18,6 +17,12 @@ public class StudioRetriever {
 		return studioRepository.findAll()
 			.stream()
 			.map(Studio::from)
-			.collect(Collectors.toList());
+			.toList();
+	}
+
+	public Studio retrieveOne(long studioNo) {
+		return studioRepository.findById(studioNo)
+			.map(Studio::from)
+			.orElseThrow(StudioExceptionHandler::notFount);
 	}
 }

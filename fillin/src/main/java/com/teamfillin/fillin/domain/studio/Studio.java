@@ -50,6 +50,26 @@ public class Studio {
 		return no;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public String getEtc() {
+		return etc;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
 	public double getLatitude() {
 		return location.getLatitude();
 	}
