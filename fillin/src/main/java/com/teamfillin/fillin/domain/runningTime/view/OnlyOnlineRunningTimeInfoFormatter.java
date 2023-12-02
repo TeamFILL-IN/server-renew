@@ -1,10 +1,10 @@
-package com.teamfillin.fillin.domain.studio.view;
+package com.teamfillin.fillin.domain.runningTime.view;
 
 import com.teamfillin.fillin.domain.runningTime.RunningTime;
 
-public class OnlyOnlineRunningTimeInfoFormatter extends RunningTimeInfoFormatter {
+class OnlyOnlineRunningTimeInfoFormatter extends RunningTimeInfoFormatter {
 
-	protected OnlyOnlineRunningTimeInfoFormatter(RunningTime runningTime) {
+	OnlyOnlineRunningTimeInfoFormatter(RunningTime runningTime) {
 		super(runningTime);
 	}
 

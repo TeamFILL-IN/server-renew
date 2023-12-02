@@ -1,8 +1,8 @@
-package com.teamfillin.fillin.domain.studio.view;
+package com.teamfillin.fillin.domain.runningTime.view;
 
 import com.teamfillin.fillin.domain.runningTime.RunningTime;
 
-public class RunningTimeInfoFormatterFactory {
+class RunningTimeInfoFormatterFactory {
 
 	private RunningTimeInfoFormatterFactory() {
 	}
