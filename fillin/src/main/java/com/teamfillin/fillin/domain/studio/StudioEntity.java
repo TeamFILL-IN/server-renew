@@ -7,11 +7,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Builder;
 
 @Entity
-public class Studio {
+@Table(name = "studio")
+public class StudioEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +42,11 @@ public class Studio {
 	@Column(nullable = false, length = 10)
 	private StudioStatus status;
 
-	protected Studio() {
+	protected StudioEntity() {
 	}
 
 	@Builder
-	private Studio(String name, String address, String tel, Double latitude, Double longitude,
+	private StudioEntity(String name, String address, String tel, Double latitude, Double longitude,
 		String etc, String site, StudioStatus status) {
 		this.name = name;
 		this.address = address;

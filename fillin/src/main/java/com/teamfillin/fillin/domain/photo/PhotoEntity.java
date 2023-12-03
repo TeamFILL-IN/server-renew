@@ -7,11 +7,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.teamfillin.fillin.domain.common.BaseTimeEntity;
 
 @Entity
-public class Photo extends BaseTimeEntity {
+@Table(name = "photo")
+public class PhotoEntity extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +35,10 @@ public class Photo extends BaseTimeEntity {
 	@Column(nullable = false, length = 10)
 	private PhotoStatus status;
 
-	protected Photo() {
+	protected PhotoEntity() {
 	}
 
-	public Photo(Long userNo, Long studioNo, Long filmNo, String imagePath) {
+	public PhotoEntity(Long userNo, Long studioNo, Long filmNo, String imagePath) {
 		this.userNo = userNo;
 		this.studioNo = studioNo;
 		this.filmNo = filmNo;

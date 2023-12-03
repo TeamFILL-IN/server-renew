@@ -5,9 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Company {
+@Table(name = "film_type")
+public class FilmTypeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +18,6 @@ public class Company {
 	@Column(nullable = false, length = 50)
 	private String name;
 
-	protected Company() {
+	protected FilmTypeEntity() {
 	}
 }

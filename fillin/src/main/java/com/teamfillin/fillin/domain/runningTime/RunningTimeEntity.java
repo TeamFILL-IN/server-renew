@@ -9,9 +9,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class RunningTime {
+@Table(name = "running_time")
+public class RunningTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +30,6 @@ public class RunningTime {
 
 	private LocalDateTime endAt;
 
-	protected RunningTime() {
+	protected RunningTimeEntity() {
 	}
 }
