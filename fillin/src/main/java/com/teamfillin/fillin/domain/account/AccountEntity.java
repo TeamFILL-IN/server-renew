@@ -14,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 @Entity
 @Table(
 	name = "account",
@@ -39,10 +42,37 @@ public class AccountEntity {
 	protected AccountEntity() {
 	}
 
-	public AccountEntity(SocialInfo socialInfo, String refreshToken, Long userNo) {
+	private AccountEntity(@NotNull SocialInfo socialInfo, long userNo, @NotNull String refreshToken) {
 		this.socialInfo = socialInfo;
-		this.refreshToken = refreshToken;
 		this.userNo = userNo;
+		this.refreshToken = refreshToken;
+	}
+
+	private AccountEntity(@NotNull SocialInfo socialInfo, long userNo) {
+		this.socialInfo = socialInfo;
+		this.userNo = userNo;
+	}
+
+	public static AccountEntity from(@NotNull SocialInfo socialInfo, long userNo) {
+		return new AccountEntity(socialInfo, userNo);
+	}
+
+	public Long getNo() {
+		return no;
+	}
+
+	@NotNull
+	public SocialInfo getSocialInfo() {
+		return socialInfo;
+	}
+
+	@Nullable
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+
+	public Long getUserNo() {
+		return userNo;
 	}
 
 	@Embeddable
@@ -58,9 +88,13 @@ public class AccountEntity {
 		protected SocialInfo() {
 		}
 
-		public SocialInfo(String socialId, SocialType socialType) {
+		private SocialInfo(String socialId, SocialType socialType) {
 			this.socialId = socialId;
 			this.socialType = socialType;
+		}
+
+		public static SocialInfo from(@NotNull SocialType socialType, @NotNull String socialId) {
+			return new SocialInfo(socialId, socialType);
 		}
 
 		@Override
@@ -76,6 +110,16 @@ public class AccountEntity {
 		@Override
 		public int hashCode() {
 			return Objects.hash(socialId, socialType);
+		}
+
+		@NotNull
+		public String getSocialId() {
+			return socialId;
+		}
+
+		@NotNull
+		public SocialType getSocialType() {
+			return socialType;
 		}
 	}
 

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.jetbrains.annotations.NotNull;
+
 @Entity
 @Table(name = "fillin_user")
 public class UserEntity {
@@ -30,9 +32,34 @@ public class UserEntity {
 	protected UserEntity() {
 	}
 
-	public UserEntity(String nickname, String profileImagePath) {
+	private UserEntity(@NotNull String nickname, @NotNull UserStatus userStatus, @NotNull String profileImagePath) {
 		this.nickname = nickname;
+		this.status = userStatus;
 		this.profileImagePath = profileImagePath;
-		this.status = UserStatus.ACTIVE;
+	}
+
+	private UserEntity(@NotNull String nickname, @NotNull UserStatus userStatus) {
+		this.nickname = nickname;
+		this.status = userStatus;
+	}
+
+	public static UserEntity createActive(@NotNull String nickname) {
+		return new UserEntity(nickname, UserStatus.ACTIVE);
+	}
+
+	public Long getNo() {
+		return no;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public String getProfileImagePath() {
+		return profileImagePath;
+	}
+
+	public UserStatus getStatus() {
+		return status;
 	}
 }
