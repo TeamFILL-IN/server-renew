@@ -13,7 +13,7 @@ public class AccountAndUserResult {
 		this.user = user;
 	}
 
-	public static AccountAndUserResult from(@NotNull Account account, @NotNull User user) {
+	public static AccountAndUserResult of(@NotNull Account account, @NotNull User user) {
 		return new AccountAndUserResult(account, user);
 	}
 

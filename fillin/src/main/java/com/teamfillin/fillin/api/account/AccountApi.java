@@ -9,8 +9,8 @@ import com.teamfillin.fillin.api.FillinApiResponse;
 import com.teamfillin.fillin.domain.account.AccountAccessResult;
 import com.teamfillin.fillin.domain.account.AccountService;
 import com.teamfillin.fillin.domain.account.SocialType;
+import com.teamfillin.fillin.domain.account.token.AccessToken;
 import com.teamfillin.fillin.domain.account.token.JwtTokenHandler;
-import com.teamfillin.fillin.domain.account.token.TokenResult;
 
 @RestController
 public class AccountApi {
@@ -33,8 +33,13 @@ public class AccountApi {
 		final String idKey = accountRequest.getIdKey();
 
 		final AccountAccessResult accountAccessResult = accountService.loginOrJoin(socialType, idKey);
-		final TokenResult tokenResult = jwtTokenHandler.generateFrom(accountAccessResult);
+		final AccessToken accessToken = jwtTokenHandler.generateAccessTokenFrom(accountAccessResult);
 
-		return FillinApiResponse.success(HttpStatus.CREATED, AccountResponse.from(accountAccessResult, tokenResult));
+		return switch (accountAccessResult.getProcedure()) {
+			case JOIN ->
+				FillinApiResponse.success(HttpStatus.CREATED, AccountResponse.from(accountAccessResult, accessToken));
+			case LOGIN -> // Client 에 해당 api 200 상태코드 적용 가능 여부 확인 필요!
+				FillinApiResponse.success(HttpStatus.OK, AccountResponse.from(accountAccessResult, accessToken));
+		};
 	}
 }

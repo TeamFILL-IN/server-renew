@@ -1,27 +1,26 @@
 package com.teamfillin.fillin.api.account;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.teamfillin.fillin.domain.account.AccountAccessResult;
 import com.teamfillin.fillin.domain.account.SocialType;
-import com.teamfillin.fillin.domain.account.token.TokenResult;
+import com.teamfillin.fillin.domain.account.token.AccessToken;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountResponse {
 	private final SocialType type;
 	private final String nickname;
 	private final String accessToken;
+	@Nullable
 	private final String refreshToken;
 
 	@Builder(access = AccessLevel.PACKAGE)
-	private AccountResponse(
-		@NotNull SocialType type,
-		@NotNull String nickname,
-		@NotNull String accessToken,
-		@NotNull String refreshToken
-	) {
+	private AccountResponse(SocialType type, String nickname, String accessToken, @Nullable String refreshToken) {
 		this.type = type;
 		this.nickname = nickname;
 		this.accessToken = accessToken;
@@ -46,13 +45,12 @@ public class AccountResponse {
 
 	public static AccountResponse from(
 		@NotNull AccountAccessResult accountAccessResult,
-		@NotNull TokenResult tokenResult
+		@NotNull AccessToken accessToken
 	) {
 		return AccountResponse.builder()
 			.type(accountAccessResult.getSocialType())
 			.nickname(accountAccessResult.getNickname())
-			.accessToken(tokenResult.getAccessToken())
-			.refreshToken(tokenResult.getRefreshToken())
+			.accessToken(accessToken.getValue())
 			.build();
 	}
 }

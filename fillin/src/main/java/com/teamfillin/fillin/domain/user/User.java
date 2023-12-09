@@ -1,5 +1,7 @@
 package com.teamfillin.fillin.domain.user;
 
+import java.util.Objects;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,5 +48,19 @@ public class User {
 			.status(userEntity.getStatus())
 			.profileImagePath(userEntity.getProfileImagePath())
 			.build();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(no, nickname, profileImagePath, status);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj != null && getClass() == obj.getClass()) {
+			User target = (User)obj;
+			return no == target.no;
+		}
+		return false;
 	}
 }

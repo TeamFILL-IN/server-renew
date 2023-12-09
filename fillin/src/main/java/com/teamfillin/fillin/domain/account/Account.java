@@ -1,5 +1,7 @@
 package com.teamfillin.fillin.domain.account;
 
+import java.util.Objects;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,7 +33,6 @@ public class Account {
 		return refreshToken;
 	}
 
-	@NotNull
 	public long getUserNo() {
 		return userNo;
 	}
@@ -59,5 +60,19 @@ public class Account {
 	@NotNull
 	public AccountEntity.SocialInfo getSocialInfo() {
 		return AccountEntity.SocialInfo.from(socialType, socialId);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(no, userNo, socialId, socialType);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj != null && getClass() == obj.getClass()) {
+			Account target = (Account)obj;
+			return no == target.no;
+		}
+		return false;
 	}
 }

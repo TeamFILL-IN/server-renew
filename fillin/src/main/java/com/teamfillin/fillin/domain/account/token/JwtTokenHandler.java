@@ -34,7 +34,7 @@ public class JwtTokenHandler {
 		this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtTokenProperties.getSecret()));
 	}
 
-	public TokenResult generateFrom(@NotNull AccountAccessResult accountAccessResult) {
+	public AccessToken generateAccessTokenFrom(@NotNull AccountAccessResult accountAccessResult) {
 		final SocialType socialType = accountAccessResult.getSocialType();
 		final long accountNo = accountAccessResult.getAccountNo();
 		final long userNo = accountAccessResult.getUserNo();
@@ -46,16 +46,14 @@ public class JwtTokenHandler {
 			.expiration(new Date(now + jwtTokenProperties.getAccessTokenValidityInMilli()))
 			.compact();
 
-		final String refreshToken = Jwts.builder()
-			.signWith(key)
-			.expiration(new Date(now + jwtTokenProperties.getRefreshTokenValidityInMilli()))
-			.compact();
-
-		return TokenResult.builder()
-			.accessToken(accessToken)
-			.refreshToken(refreshToken)
+		return AccessToken.builder()
+			.tokenType(TokenType.JWT)
+			.value(accessToken)
 			.build();
 	}
+
+	// 이후 refresh token 적용시 메서드 생성 및 구현.
+	// public RefreshToken generateRefreshTokenFrom()
 
 	public ValidateResult validateToken(@NotNull String token) {
 		ValidateResult validateResult;

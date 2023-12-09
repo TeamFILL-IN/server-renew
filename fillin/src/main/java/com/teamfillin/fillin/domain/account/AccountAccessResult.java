@@ -60,6 +60,10 @@ public class AccountAccessResult {
 		return userNo;
 	}
 
+	public PROCEDURE getProcedure() {
+		return procedure;
+	}
+
 	public enum PROCEDURE {
 		LOGIN,
 		JOIN,

@@ -35,7 +35,7 @@ public class AccountUserFacade {
 		final Account foundAccount = accountRetriever.retrieve(socialType, idKey);
 		final User foundUser = userRetriever.retrieve(foundAccount.getUserNo());
 
-		return AccountAndUserResult.from(foundAccount, foundUser);
+		return AccountAndUserResult.of(foundAccount, foundUser);
 	}
 
 	@Nullable
@@ -45,7 +45,7 @@ public class AccountUserFacade {
 
 		if (foundAccount != null) {
 			final User foundUser = userRetriever.retrieve(foundAccount.getUserNo());
-			return AccountAndUserResult.from(foundAccount, foundUser);
+			return AccountAndUserResult.of(foundAccount, foundUser);
 		}
 
 		return null;
@@ -62,6 +62,6 @@ public class AccountUserFacade {
 			registeredUser.getNo()
 		);
 
-		return AccountAndUserResult.from(registeredAccount, registeredUser);
+		return AccountAndUserResult.of(registeredAccount, registeredUser);
 	}
 }
