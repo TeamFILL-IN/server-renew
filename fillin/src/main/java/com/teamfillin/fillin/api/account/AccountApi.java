@@ -1,6 +1,7 @@
 package com.teamfillin.fillin.api.account;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class AccountApi {
 	}
 
 	@PostMapping("/auth")
-	public FillinApiResponse loginOrJoin(
+	public ResponseEntity<FillinApiResponse> loginOrJoin(
 		@RequestBody AccountRequest accountRequest
 	) {
 		final SocialType socialType = accountRequest.getSocial();

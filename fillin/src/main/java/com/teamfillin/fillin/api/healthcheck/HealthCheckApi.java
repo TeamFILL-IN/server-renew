@@ -1,5 +1,6 @@
 package com.teamfillin.fillin.api.healthcheck;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,7 @@ public class HealthCheckApi {
 	}
 
 	@GetMapping("/health/readiness")
-	public FillinApiResponse readiness() {
+	public ResponseEntity<FillinApiResponse> readiness() {
 		healthChecker.succeed();
 		return FillinApiResponse.success();
 	}
