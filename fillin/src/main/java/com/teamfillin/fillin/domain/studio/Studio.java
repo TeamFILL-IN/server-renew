@@ -29,23 +29,6 @@ public class Studio {
 		this.status = status;
 	}
 
-	public static Studio from(StudioEntity studioEntity) {
-		StudioLocation location = StudioLocation.builder()
-			.longitude(studioEntity.getLongitude())
-			.latitude(studioEntity.getLatitude())
-			.build();
-		return Studio.builder()
-			.no(studioEntity.getNo())
-			.name(studioEntity.getName())
-			.address(studioEntity.getAddress())
-			.tel(studioEntity.getTel())
-			.location(location)
-			.etc(studioEntity.getEtc())
-			.site(studioEntity.getSite())
-			.status(studioEntity.getStatus())
-			.build();
-	}
-
 	public long getNo() {
 		return no;
 	}

@@ -58,6 +58,23 @@ public class StudioEntity {
 		this.status = status;
 	}
 
+	public Studio toStudio() {
+		StudioLocation studioLocation = StudioLocation.builder()
+			.longitude(longitude)
+			.latitude(latitude)
+			.build();
+		return Studio.builder()
+			.no(no)
+			.name(name)
+			.address(address)
+			.tel(tel)
+			.location(studioLocation)
+			.etc(etc)
+			.site(site)
+			.status(status)
+			.build();
+	}
+
 	public Long getNo() {
 		return no;
 	}
