@@ -37,6 +37,16 @@ public class RunningTimeEntity {
 	protected RunningTimeEntity() {
 	}
 
+	public RunningTime toRunningTime() {
+		return new RunningTime(
+			studioNo,
+			dayOfWeek.getValue(),
+			operationStatus,
+			startAt.toLocalTime(),
+			endAt.toLocalTime()
+		);
+	}
+
 	public Long getStudioNo() {
 		return studioNo;
 	}

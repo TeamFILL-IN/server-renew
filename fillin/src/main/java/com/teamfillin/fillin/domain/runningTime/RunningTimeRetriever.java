@@ -16,7 +16,7 @@ public class RunningTimeRetriever {
 	public List<RunningTime> retrieveByStudioNo(long studioNo) {
 		return runningTimeRepository.findByStudioNo(studioNo)
 			.stream()
-			.map(RunningTime::from)
+			.map(RunningTimeEntity::toRunningTime)
 			.toList();
 	}
 }

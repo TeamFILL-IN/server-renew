@@ -19,16 +19,6 @@ public class RunningTime {
 		this.endAt = endAt;
 	}
 
-	public static RunningTime from(RunningTimeEntity runningTimeEntity) {
-		return new RunningTime(
-			runningTimeEntity.getStudioNo(),
-			runningTimeEntity.getDayOfWeek().getValue(),
-			runningTimeEntity.getOperationStatus(),
-			runningTimeEntity.getStartAt().toLocalTime(),
-			runningTimeEntity.getEndAt().toLocalTime()
-		);
-	}
-
 	public boolean isBetween(LocalTime now) {
 		return startAt.isBefore(now) && endAt.isAfter(now);
 	}
