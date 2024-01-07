@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.NotNull;
@@ -22,11 +21,11 @@ class KeywordManager {
 		this.values = values;
 	}
 
-	String makeFinalSearchKeyword() {
+	String makeSearchKeyword() {
 		return makeCriticalSearchKeyword() + makeMinorSearchKeyword();
 	}
 
-	String makeCriticalSearchKeyword() {
+	private String makeCriticalSearchKeyword() {
 		StringBuilder sb = new StringBuilder();
 		for (String criticalKeyWord : getCriticalKeyWords()) {
 			sb.append(CRITICAL_OPERATOR).append(criticalKeyWord).append(BLANK);
@@ -34,11 +33,11 @@ class KeywordManager {
 		return sb.toString();
 	}
 
-	List<String> getCriticalKeyWords() {
+	private List<String> getCriticalKeyWords() {
 		return values.get(Value.CRITICAL);
 	}
 
-	String makeMinorSearchKeyword() {
+	private String makeMinorSearchKeyword() {
 		StringBuilder sb = new StringBuilder();
 		for (String minorKeyWord : getMinorKeyWords()) {
 			sb.append(minorKeyWord).append(BLANK);
@@ -46,29 +45,26 @@ class KeywordManager {
 		return sb.toString();
 	}
 
-	List<String> getMinorKeyWords() {
+	private List<String> getMinorKeyWords() {
 		return values.get(Value.MINOR);
 	}
 
-	static KeywordManager from(String inputKeyword) {
+	static KeywordManager from(InputKeyword inputKeyword) {
 		Map<Value, List<String>> keywordsWithValue = new EnumMap<>(Value.class);
-
-		List<String> keywordTokens = Arrays.stream(inputKeyword.split(BLANK)).collect(Collectors.toList());
-		keywordsWithValue.put(Value.MINOR, StopWord.replaceStopWordToModifiedWord(keywordTokens));
-
-		StopWord.removeStopWordIn(keywordTokens);
-		keywordsWithValue.put(Value.CRITICAL, refineKeywordsForSearch(keywordTokens));
-
+		List<String> inputKeywordTokens = inputKeyword.getValues();
+		StopWord.removeStopWordIn(inputKeywordTokens);
+		keywordsWithValue.put(Value.CRITICAL, refineKeywordsForSearch(inputKeywordTokens));
+		keywordsWithValue.put(Value.MINOR, StopWord.replaceStopWordToModifiedWord(inputKeyword.getValues()));
 		return new KeywordManager(keywordsWithValue);
 	}
 
 	@NotNull
 	private static List<String> refineKeywordsForSearch(List<String> keywordTokens) {
 		return keywordTokens.stream()
-			.flatMap(s -> s.length() > TOKEN_SIZE
-				? Arrays.stream(s.split(CHUNK_SPLIT_REGEX))
-				: Stream.of(s)
-			)
+			.flatMap(token -> token.length() > TOKEN_SIZE
+				? Arrays.stream(token.split(CHUNK_SPLIT_REGEX))
+				: Stream.of(token))
+			.filter(token -> token.length() == TOKEN_SIZE)
 			.toList();
 	}
 
@@ -99,8 +95,8 @@ class KeywordManager {
 
 		static void removeStopWordIn(List<String> keywordTokens) {
 			Arrays.stream(values())
-				.forEach(stopWord -> keywordTokens.removeIf(s ->
-					s.contains(stopWord.origin) || s.contains(stopWord.modified)
+				.forEach(stopWord -> keywordTokens.removeIf(token ->
+					token.contains(stopWord.origin) || token.contains(stopWord.modified)
 				));
 		}
 	}
