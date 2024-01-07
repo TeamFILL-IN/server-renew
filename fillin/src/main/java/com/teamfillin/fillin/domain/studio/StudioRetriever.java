@@ -16,13 +16,13 @@ public class StudioRetriever {
 	public List<Studio> retrieveAll() {
 		return studioRepository.findAll()
 			.stream()
-			.map(Studio::from)
+			.map(StudioEntity::toStudio)
 			.toList();
 	}
 
 	public Studio retrieveOne(long studioNo) {
 		return studioRepository.findById(studioNo)
-			.map(Studio::from)
+			.map(StudioEntity::toStudio)
 			.orElseThrow(StudioExceptionHandler::notFount);
 	}
 }
