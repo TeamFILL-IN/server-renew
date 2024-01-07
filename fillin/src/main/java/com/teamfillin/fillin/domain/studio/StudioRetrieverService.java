@@ -1,7 +1,6 @@
 package com.teamfillin.fillin.domain.studio;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +19,6 @@ public class StudioRetrieverService {
 		return studioRetriever.retrieveAll()
 			.stream()
 			.map(StudioLocationResult::from)
-			.collect(Collectors.toList());
+			.toList();
 	}
 }
