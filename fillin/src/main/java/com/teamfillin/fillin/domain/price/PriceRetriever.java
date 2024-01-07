@@ -16,7 +16,7 @@ public class PriceRetriever {
 	public List<Price> retrieveByStudioNo(long studioNo) {
 		return priceRepository.findByStudioNo(studioNo)
 			.stream()
-			.map(Price::from)
+			.map(PriceEntity::toPrice)
 			.toList();
 	}
 }

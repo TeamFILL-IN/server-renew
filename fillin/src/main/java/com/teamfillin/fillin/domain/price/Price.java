@@ -8,14 +8,10 @@ public class Price {
 	private final String name;
 	private final int amount;
 
-	private Price(long studioNo, String name, int amount) {
+	public Price(long studioNo, String name, int amount) {
 		this.studioNo = studioNo;
 		this.name = name;
 		this.amount = amount;
-	}
-
-	public static Price from(PriceEntity priceEntity) {
-		return new Price(priceEntity.getStudioNo(), priceEntity.getName(), priceEntity.getAmount());
 	}
 
 	public String getName() {
