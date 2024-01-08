@@ -1,11 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+// versions
+val guavaVersion: String by properties
+
 plugins {
     java
     id("org.springframework.boot") version "2.7.17"
     id("io.spring.dependency-management") version "1.0.15.RELEASE"
     kotlin("plugin.spring") apply true
     kotlin("jvm") apply true
+
 }
 
 group = "com.teamfillin"
@@ -27,13 +31,23 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.projectlombok:lombok")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // guava
+    implementation("com.google.guava:guava:$guavaVersion")
+
+    // apache
+    implementation("org.apache.commons:commons-lang3:3.14.0")
+
+    // jwt
+    implementation("io.jsonwebtoken:jjwt:0.12.3")
 
     // kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

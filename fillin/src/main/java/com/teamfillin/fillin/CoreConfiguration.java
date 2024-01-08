@@ -17,7 +17,7 @@ public class CoreConfiguration {
 	public static Map<String, Object> getProperties() {
 		Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
-		additionalProperties.put("spring.config.location", "classpath:/core/, classpath:/");
+		additionalProperties.put("spring.config.location", "classpath:/");
 		return additionalProperties;
 	}
 }
