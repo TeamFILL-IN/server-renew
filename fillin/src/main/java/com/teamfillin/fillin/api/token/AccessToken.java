@@ -1,10 +1,9 @@
-package com.teamfillin.fillin.domain.account.token;
+package com.teamfillin.fillin.api.token;
 
 import java.util.Objects;
 
 import org.jetbrains.annotations.NotNull;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 
 public class AccessToken {
@@ -13,7 +12,7 @@ public class AccessToken {
 	@NotNull
 	private final String value;
 
-	@Builder(access = AccessLevel.PACKAGE)
+	@Builder
 	private AccessToken(@NotNull TokenType tokenType, @NotNull String value) {
 		this.type = tokenType;
 		this.value = value;

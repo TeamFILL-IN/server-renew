@@ -1,11 +1,15 @@
-package com.teamfillin.fillin.domain.account.token;
+package com.teamfillin.fillin.api.token;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+
+import com.teamfillin.fillin.api.token.jwt.JwtTokenHandler;
 
 @Configuration
 @EnableConfigurationProperties
@@ -36,5 +40,11 @@ public class TokenConfiguration {
 		public long getRefreshTokenValidityInMilli() {
 			return refreshTokenValidityInMilli;
 		}
+	}
+
+	@Bean
+	@Primary
+	public TokenHandler tokenHandler(JwtTokenProperties jwtTokenProperties) {
+		return new JwtTokenHandler(jwtTokenProperties);
 	}
 }
