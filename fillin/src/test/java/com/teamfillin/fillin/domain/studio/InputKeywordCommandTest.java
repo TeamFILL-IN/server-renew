@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class InputKeywordTest {
+class InputKeywordCommandTest {
 
 	@DisplayName("InputKeyword 생성시 문자열을 공백 기준 개별 키워드로 분할한다")
 	@Test
@@ -16,7 +16,7 @@ class InputKeywordTest {
 		String input = "필린 현상소";
 
 		// when
-		InputKeyword actual = InputKeyword.from(input);
+		InputKeywordCommand actual = InputKeywordCommand.from(input);
 
 		// then
 		List<String> expected = List.of("필린", "현상소");
@@ -27,7 +27,7 @@ class InputKeywordTest {
 	@Test
 	void fromNull() {
 		// given, when
-		InputKeyword actual = InputKeyword.from(null);
+		InputKeywordCommand actual = InputKeywordCommand.from(null);
 
 		// then
 		assertThat(actual.getOriginValues()).isEmpty();
@@ -38,13 +38,13 @@ class InputKeywordTest {
 	void getOriginValues() {
 		// given
 		String input = "필린 현상소";
-		InputKeyword inputKeyword = InputKeyword.from(input);
+		InputKeywordCommand inputKeywordCommand = InputKeywordCommand.from(input);
 
 		// when
 		List<String> expected = List.of("필린", "현상소");
-		inputKeyword.getOriginValues().removeAll(expected);
+		inputKeywordCommand.getOriginValues().removeAll(expected);
 
 		// then
-		assertThat(inputKeyword.getOriginValues()).containsAll(expected);
+		assertThat(inputKeywordCommand.getOriginValues()).containsAll(expected);
 	}
 }
