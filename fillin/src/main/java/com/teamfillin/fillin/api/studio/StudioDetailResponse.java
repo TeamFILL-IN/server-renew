@@ -2,7 +2,8 @@ package com.teamfillin.fillin.api.studio;
 
 import com.teamfillin.fillin.domain.price.view.PriceView;
 import com.teamfillin.fillin.domain.runningTime.view.RunningTimeView;
-import com.teamfillin.fillin.domain.studio.view.StudioView;
+import com.teamfillin.fillin.domain.studio.Studio;
+import com.teamfillin.fillin.domain.studio.StudioDetailResult;
 
 public class StudioDetailResponse {
 
@@ -33,19 +34,22 @@ public class StudioDetailResponse {
 		this.runningStatus = runningStatus;
 	}
 
-	public static StudioDetailResponse of(StudioView studioView, PriceView priceView, RunningTimeView runningTimeView) {
+	public static StudioDetailResponse from(StudioDetailResult detailResult) {
+		Studio studio = detailResult.getStudio();
+		PriceView priceView = detailResult.getPriceView();
+		RunningTimeView runningTimeView = detailResult.getRunningTimeView();
 		return new StudioDetailResponse(
-			studioView.getNo(),
-			studioView.getName(),
-			studioView.getAddress(),
+			studio.getNo(),
+			studio.getName(),
+			studio.getAddress(),
 			priceView.getPriceInfo(),
 			runningTimeView.getRunningTimeInfo(),
-			studioView.getTel(),
-			studioView.getLatitude(),
-			studioView.getLongitude(),
-			studioView.getEtc(),
-			studioView.getSite(),
-			studioView.getRunningStatusValue()
+			studio.getTel(),
+			studio.getLatitude(),
+			studio.getLongitude(),
+			studio.getEtc(),
+			studio.getSite(),
+			studio.getRunningStatusValue()
 		);
 	}
 

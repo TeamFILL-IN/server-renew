@@ -7,7 +7,7 @@ class StudioExceptionHandler {
 	private StudioExceptionHandler() {
 	}
 
-	public static FillinException notFount() {
-		throw FillinException.from(StudioErrorCode.E404_STUDIO_NOT_FOUNT);
+	public static FillinException notFound() {
+		throw FillinException.from(StudioErrorCode.E404_STUDIO_NOT_FOUND);
 	}
 }

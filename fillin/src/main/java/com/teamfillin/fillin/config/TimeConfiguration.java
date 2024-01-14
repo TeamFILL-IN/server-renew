@@ -1,4 +1,4 @@
-package com.teamfillin.fillin.domain.studio;
+package com.teamfillin.fillin.config;
 
 import java.time.Clock;
 import java.time.ZoneId;

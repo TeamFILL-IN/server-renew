@@ -8,7 +8,7 @@ import com.teamfillin.fillin.FillinErrorCode;
 
 enum StudioErrorCode implements FillinErrorCode {
 
-	E404_STUDIO_NOT_FOUNT(HttpStatus.NOT_FOUND, "존재하지 않는 스튜디오입니다"),
+	E404_STUDIO_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 스튜디오입니다"),
 	;
 
 	private final HttpStatus status;

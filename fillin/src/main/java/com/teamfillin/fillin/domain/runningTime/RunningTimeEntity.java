@@ -40,7 +40,7 @@ public class RunningTimeEntity {
 	public RunningTime toRunningTime() {
 		return new RunningTime(
 			studioNo,
-			dayOfWeek.getValue(),
+			dayOfWeek,
 			operationStatus,
 			startAt.toLocalTime(),
 			endAt.toLocalTime()

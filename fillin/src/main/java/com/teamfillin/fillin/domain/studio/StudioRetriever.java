@@ -13,6 +13,9 @@ public class StudioRetriever {
 		this.studioRepository = studioRepository;
 	}
 
+	/**
+	 * 주의 : 메서드 호출 시 full table scan 발생
+	 */
 	public List<Studio> retrieveAll() {
 		return studioRepository.findAll()
 			.stream()
@@ -23,6 +26,6 @@ public class StudioRetriever {
 	public Studio retrieveOne(long studioNo) {
 		return studioRepository.findById(studioNo)
 			.map(StudioEntity::toStudio)
-			.orElseThrow(StudioExceptionHandler::notFount);
+			.orElseThrow(StudioExceptionHandler::notFound);
 	}
 }

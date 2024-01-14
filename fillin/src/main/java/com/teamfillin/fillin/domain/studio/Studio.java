@@ -2,6 +2,10 @@ package com.teamfillin.fillin.domain.studio;
 
 import java.util.Objects;
 
+import org.jetbrains.annotations.NotNull;
+
+import com.teamfillin.fillin.domain.runningTime.OperationStatus;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 
@@ -15,9 +19,11 @@ public class Studio {
 	private final String etc;
 	private final String site;
 	private final StudioStatus status;
+	private StudioRunningStatus runningStatus;
+
 
 	@Builder(access = AccessLevel.PACKAGE)
-	private Studio(long no, String name, String address, String tel, StudioLocation location, String etc,
+	private Studio(long no, String name, String address, String tel, @NotNull StudioLocation location, String etc,
 		String site, StudioStatus status) {
 		this.no = no;
 		this.name = name;
@@ -27,6 +33,16 @@ public class Studio {
 		this.etc = etc;
 		this.site = site;
 		this.status = status;
+	}
+
+	public void setRunningStatus(OperationStatus operationStatus) {
+		if (operationStatus.isClosed()) {
+			runningStatus = StudioRunningStatus.CLOSED;
+		} else if (operationStatus.isBreakTime()) {
+			runningStatus = StudioRunningStatus.BREAK_TIME;
+		} else {
+			runningStatus = StudioRunningStatus.OPEN;
+		}
 	}
 
 	public long getNo() {
@@ -59,6 +75,10 @@ public class Studio {
 
 	public double getLongitude() {
 		return location.getLongitude();
+	}
+
+	public String getRunningStatusValue() {
+		return runningStatus.getValue();
 	}
 
 	@Override

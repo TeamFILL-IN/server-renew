@@ -3,6 +3,7 @@ package com.teamfillin.fillin.api.studio;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.teamfillin.fillin.api.FillinApiResponse;
+import com.teamfillin.fillin.domain.studio.StudioDetailResult;
 import com.teamfillin.fillin.domain.studio.StudioDetailRetrieveService;
 import com.teamfillin.fillin.domain.studio.StudioLocationResult;
 import com.teamfillin.fillin.domain.studio.StudioRetrieverService;
@@ -36,18 +38,20 @@ public class StudioRetrieveApi {
 	 * 	구역 내 studio search 하는 api 로 변경
 	 */
 	@GetMapping("/maps")
-	public FillinApiResponse retrieveAllStudio() {
+	public ResponseEntity<FillinApiResponse> retrieveAllStudio() {
 		List<StudioLocationResult> studioLocationResults = studioRetrieverService.retrieveAllStudio();
 		return FillinApiResponse.success(HttpStatus.OK, new StudioRetrieveAllResponse(studioLocationResults));
 	}
 
-	@GetMapping("/{studioId}")
-	public FillinApiResponse retrieveStudioDetail(@PathVariable long studioId) {
-		return FillinApiResponse.success(HttpStatus.OK, studioDetailRetrieveService.retrieveDetail(studioId));
+	@GetMapping("/{studioNo}")
+	public ResponseEntity<FillinApiResponse> retrieveStudioDetail(@PathVariable long studioNo) {
+		StudioDetailResult detailResult = studioDetailRetrieveService.retrieveDetail(studioNo);
+		StudioDetailResponse studioDetailResponse = StudioDetailResponse.from(detailResult);
+		return FillinApiResponse.success(HttpStatus.OK, studioDetailResponse);
 	}
 
 	@GetMapping("/search")
-	public FillinApiResponse searchStudio(@RequestParam InputKeywordRequest inputKeywordRequest) {
-		return FillinApiResponse.success(HttpStatus.OK, studioSearchService.searchStudio(inputKeywordRequest.toInputKeyword()));
+	public ResponseEntity<FillinApiResponse> searchStudio(@RequestParam InputKeywordRequest inputKeywordRequest) {
+		return FillinApiResponse.success(HttpStatus.OK, studioSearchService.searchStudio(inputKeywordRequest.toInputKeywordCommand()));
 	}
 }

@@ -49,12 +49,12 @@ class KeywordManager {
 		return values.get(Value.MINOR);
 	}
 
-	static KeywordManager from(InputKeyword inputKeyword) {
+	static KeywordManager from(InputKeywordCommand inputKeywordCommand) {
 		Map<Value, List<String>> keywordsWithValue = new EnumMap<>(Value.class);
-		List<String> inputKeywordTokens = inputKeyword.getValues();
+		List<String> inputKeywordTokens = inputKeywordCommand.getOriginValues();
 		StopWord.removeStopWordIn(inputKeywordTokens);
 		keywordsWithValue.put(Value.CRITICAL, refineKeywordsForSearch(inputKeywordTokens));
-		keywordsWithValue.put(Value.MINOR, StopWord.replaceStopWordToModifiedWord(inputKeyword.getValues()));
+		keywordsWithValue.put(Value.MINOR, StopWord.replaceStopWordToModifiedWord(inputKeywordCommand.getOriginValues()));
 		return new KeywordManager(keywordsWithValue);
 	}
 
@@ -88,15 +88,19 @@ class KeywordManager {
 
 		static List<String> replaceStopWordToModifiedWord(List<String> keywordTokens) {
 			return Arrays.stream(values())
-				.filter(stopWord -> keywordTokens.contains(stopWord.origin) || keywordTokens.contains(stopWord.modified))
+				.filter(stopWord ->
+					keywordTokens.stream().anyMatch(token ->
+						token.contains(stopWord.origin) || token.contains(stopWord.modified))
+				)
 				.map(stopWord -> stopWord.modified)
 				.toList();
 		}
 
 		static void removeStopWordIn(List<String> keywordTokens) {
 			Arrays.stream(values())
-				.forEach(stopWord -> keywordTokens.removeIf(token ->
-					token.contains(stopWord.origin) || token.contains(stopWord.modified)
+				.forEach(stopWord ->
+					keywordTokens.removeIf(token ->
+						token.contains(stopWord.origin) || token.contains(stopWord.modified)
 				));
 		}
 	}

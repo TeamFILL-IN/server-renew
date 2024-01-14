@@ -15,8 +15,8 @@ public class StudioSearchService {
 		this.studioSearcher = studioSearcher;
 	}
 
-	public List<StudioSearchResult> searchStudio(InputKeyword inputKeyword) {
-		return studioSearcher.searchByKeyword(inputKeyword)
+	public List<StudioSearchResult> searchStudio(InputKeywordCommand inputKeywordCommand) {
+		return studioSearcher.searchByKeyword(inputKeywordCommand)
 			.stream()
 			.map(StudioSearchResult::from)
 			.toList();

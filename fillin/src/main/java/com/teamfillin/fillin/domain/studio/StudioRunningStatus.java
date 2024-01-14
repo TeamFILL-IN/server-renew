@@ -1,4 +1,4 @@
-package com.teamfillin.fillin.domain.studio.view;
+package com.teamfillin.fillin.domain.studio;
 
 enum StudioRunningStatus {
 
