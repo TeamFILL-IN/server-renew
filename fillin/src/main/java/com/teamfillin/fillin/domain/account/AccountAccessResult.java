@@ -22,23 +22,23 @@ public class AccountAccessResult {
 		this.userNo = userNo;
 	}
 
-	public static AccountAccessResult login(@NotNull AccountAndUserResult accountAndUserResult) {
+	public static AccountAccessResult login(@NotNull AccountAndUser accountAndUser) {
 		return AccountAccessResult.builder()
 			.procedure(PROCEDURE.LOGIN)
-			.socialType(accountAndUserResult.getSocialType())
-			.nickname(accountAndUserResult.getNickname())
-			.accountNo(accountAndUserResult.getAccountNo())
-			.userNo(accountAndUserResult.getUserNo())
+			.socialType(accountAndUser.getSocialType())
+			.nickname(accountAndUser.getNickname())
+			.accountNo(accountAndUser.getAccountNo())
+			.userNo(accountAndUser.getUserNo())
 			.build();
 	}
 
-	public static AccountAccessResult join(@NotNull AccountAndUserResult accountAndUserResult) {
+	public static AccountAccessResult join(@NotNull AccountAndUser accountAndUser) {
 		return AccountAccessResult.builder()
 			.procedure(PROCEDURE.JOIN)
-			.socialType(accountAndUserResult.getSocialType())
-			.nickname(accountAndUserResult.getNickname())
-			.accountNo(accountAndUserResult.getAccountNo())
-			.userNo(accountAndUserResult.getUserNo())
+			.socialType(accountAndUser.getSocialType())
+			.nickname(accountAndUser.getNickname())
+			.accountNo(accountAndUser.getAccountNo())
+			.userNo(accountAndUser.getUserNo())
 			.build();
 	}
 

@@ -7,45 +7,40 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.teamfillin.fillin.domain.user.User;
-import com.teamfillin.fillin.domain.user.UserRegister;
-import com.teamfillin.fillin.domain.user.UserRetriever;
 
 @Component
 public class AccountUserFacade {
 	private final AccountRegister accountRegister;
 	private final AccountRetriever accountRetriever;
-	private final UserRegister userRegister;
-	private final UserRetriever userRetriever;
+	private final UserBridge userBridge;
 
 	public AccountUserFacade(
 		AccountRegister accountRegister
 		, AccountRetriever accountRetriever
-		, UserRegister userRegister
-		, UserRetriever userRetriever
+		, UserBridge userBridge
 	) {
 		this.accountRegister = accountRegister;
 		this.accountRetriever = accountRetriever;
-		this.userRegister = userRegister;
-		this.userRetriever = userRetriever;
+		this.userBridge = userBridge;
 	}
 
 	@NotNull
 	@Transactional(readOnly = true)
-	public AccountAndUserResult retrieve(@NotNull SocialType socialType, @NotNull String idKey) {
+	public AccountAndUser retrieve(@NotNull SocialType socialType, @NotNull String idKey) {
 		final Account foundAccount = accountRetriever.retrieve(socialType, idKey);
-		final User foundUser = userRetriever.retrieve(foundAccount.getUserNo());
+		final User foundUser = userBridge.retrieveUser(foundAccount.getUserNo());
 
-		return AccountAndUserResult.of(foundAccount, foundUser);
+		return new AccountAndUser(foundAccount, foundUser);
 	}
 
 	@Nullable
 	@Transactional(readOnly = true)
-	public AccountAndUserResult retrieveAccountAndUserOrNull(@NotNull SocialType socialType, @NotNull String idKey) {
+	public AccountAndUser retrieveOrNull(@NotNull SocialType socialType, @NotNull String idKey) {
 		final Account foundAccount = accountRetriever.retrieveOrNull(socialType, idKey);
 
 		if (foundAccount != null) {
-			final User foundUser = userRetriever.retrieve(foundAccount.getUserNo());
-			return AccountAndUserResult.of(foundAccount, foundUser);
+			final User foundUser = userBridge.retrieveUser(foundAccount.getUserNo());
+			return new AccountAndUser(foundAccount, foundUser);
 		}
 
 		return null;
@@ -53,15 +48,15 @@ public class AccountUserFacade {
 
 	@NotNull
 	@Transactional
-	public AccountAndUserResult registerAccountAndUser(@NotNull SocialType socialType, @NotNull String idKey)
+	public AccountAndUser registerAccountAndUser(@NotNull SocialType socialType, @NotNull String idKey)
 		throws DataIntegrityViolationException {
-		final User registeredUser = userRegister.registerUser();
+		final User registeredUser = userBridge.registerUser();
 		final Account registeredAccount = accountRegister.registerAccount(
 			socialType,
 			idKey,
 			registeredUser.getNo()
 		);
 
-		return AccountAndUserResult.of(registeredAccount, registeredUser);
+		return new AccountAndUser(registeredAccount, registeredUser);
 	}
 }

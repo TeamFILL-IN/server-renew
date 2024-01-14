@@ -1,8 +1,8 @@
 package com.teamfillin.fillin.domain.account;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.teamfillin.fillin.domain.account.AccountEntity.SocialInfo;
@@ -15,16 +15,21 @@ public class AccountRegister {
 		this.accountRepository = accountRepository;
 	}
 
-	// TODO : 중복 요청으로 인한 unique error catch 필요
-	@Transactional(propagation = Propagation.MANDATORY)
+	@Transactional
 	public Account registerAccount(
 		@NotNull SocialType socialType,
 		@NotNull String socialId,
 		long userNo
-	) {
+	) throws DataIntegrityViolationException {
 		final SocialInfo socialInfo = SocialInfo.from(socialType, socialId);
 		final AccountEntity registeredAccountEntity = accountRepository.save(AccountEntity.from(socialInfo, userNo));
 
-		return Account.from(registeredAccountEntity);
+		return Account.builder()
+			.no(registeredAccountEntity.getNo())
+			.userNo(registeredAccountEntity.getUserNo())
+			.socialType(registeredAccountEntity.getSocialInfo().getSocialType())
+			.socialId(registeredAccountEntity.getSocialInfo().getSocialId())
+			.refreshToken(registeredAccountEntity.getRefreshToken())
+			.build();
 	}
 }

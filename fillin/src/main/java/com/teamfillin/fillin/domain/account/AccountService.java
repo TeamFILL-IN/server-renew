@@ -14,23 +14,26 @@ public class AccountService {
 	}
 
 	@Transactional
-	public AccountAccessResult loginOrJoin(@NotNull SocialType socialType, @NotNull String idKey) {
-		final AccountAndUserResult accountAndUser = accountUserFacade.retrieveAccountAndUserOrNull(socialType, idKey);
+	public AccountAccessResult loginOrJoin(@NotNull AccountCreateCommand command) {
+		final SocialType socialType = command.getSocialType();
+		final String idKey = command.getIdKey();
+
+		final AccountAndUser accountAndUser = accountUserFacade.retrieveOrNull(socialType, idKey);
 		if (joined(accountAndUser)) {
 			return AccountAccessResult.login(accountAndUser);
 		}
 
-		final AccountAndUserResult joinResult;
+		final AccountAndUser joinResult;
 		try {
 			joinResult = accountUserFacade.registerAccountAndUser(socialType, idKey);
 		} catch (DataIntegrityViolationException e) { // unique error 에 대한 catch
-			final AccountAndUserResult foundAccountAndUser = accountUserFacade.retrieve(socialType, idKey);
+			final AccountAndUser foundAccountAndUser = accountUserFacade.retrieve(socialType, idKey);
 			return AccountAccessResult.login(foundAccountAndUser);
 		}
 		return AccountAccessResult.join(joinResult);
 	}
 
-	private boolean joined(AccountAndUserResult accountAndUser) {
+	private boolean joined(AccountAndUser accountAndUser) {
 		return accountAndUser != null;
 	}
 }

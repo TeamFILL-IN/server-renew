@@ -5,7 +5,6 @@ import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 
 public class Account {
@@ -15,7 +14,7 @@ public class Account {
 	private final String socialId;
 	private final SocialType socialType;
 
-	@Builder(access = AccessLevel.PRIVATE)
+	@Builder
 	private Account(long no, String refreshToken, long userNo, String socialId, SocialType socialType) {
 		this.no = no;
 		this.refreshToken = refreshToken;
@@ -45,21 +44,6 @@ public class Account {
 	@NotNull
 	public SocialType getSocialType() {
 		return socialType;
-	}
-
-	public static Account from(@NotNull AccountEntity accountEntity) {
-		return Account.builder()
-			.no(accountEntity.getNo())
-			.userNo(accountEntity.getUserNo())
-			.socialType(accountEntity.getSocialInfo().getSocialType())
-			.socialId(accountEntity.getSocialInfo().getSocialId())
-			.refreshToken(accountEntity.getRefreshToken())
-			.build();
-	}
-
-	@NotNull
-	public AccountEntity.SocialInfo getSocialInfo() {
-		return AccountEntity.SocialInfo.from(socialType, socialId);
 	}
 
 	@Override

@@ -10,8 +10,8 @@ import com.teamfillin.fillin.api.FillinApiResponse;
 import com.teamfillin.fillin.api.token.AccessToken;
 import com.teamfillin.fillin.api.token.TokenHandler;
 import com.teamfillin.fillin.domain.account.AccountAccessResult;
+import com.teamfillin.fillin.domain.account.AccountCreateCommand;
 import com.teamfillin.fillin.domain.account.AccountService;
-import com.teamfillin.fillin.domain.account.SocialType;
 
 @RestController
 public class AccountApi {
@@ -30,10 +30,12 @@ public class AccountApi {
 	public ResponseEntity<FillinApiResponse> loginOrJoin(
 		@RequestBody AccountRequest accountRequest
 	) {
-		final SocialType socialType = accountRequest.getSocial();
-		final String idKey = accountRequest.getIdKey();
+		final AccountCreateCommand command = new AccountCreateCommand(
+			accountRequest.getSocial(),
+			accountRequest.getIdKey()
+		);
 
-		final AccountAccessResult accountAccessResult = accountService.loginOrJoin(socialType, idKey);
+		final AccountAccessResult accountAccessResult = accountService.loginOrJoin(command);
 		final AccessToken accessToken = tokenHandler.generateAccessTokenFrom(accountAccessResult);
 
 		return switch (accountAccessResult.getProcedure()) {
