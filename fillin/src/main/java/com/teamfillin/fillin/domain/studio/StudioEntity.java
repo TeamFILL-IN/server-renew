@@ -40,7 +40,7 @@ public class StudioEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 10)
-	private StudioStatus status;
+	private StudioStatus status; // studio 가 더 이상 장사를 하지 않는건지 판단하는 경우에만 필요할듯
 
 	protected StudioEntity() {
 	}
@@ -56,5 +56,58 @@ public class StudioEntity {
 		this.etc = etc;
 		this.site = site;
 		this.status = status;
+	}
+
+	public Studio toStudio() {
+		StudioLocation studioLocation = StudioLocation.builder()
+			.longitude(longitude)
+			.latitude(latitude)
+			.build();
+		return Studio.builder()
+			.no(no)
+			.name(name)
+			.address(address)
+			.tel(tel)
+			.location(studioLocation)
+			.etc(etc)
+			.site(site)
+			.status(status)
+			.build();
+	}
+
+	public Long getNo() {
+		return no;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public String getEtc() {
+		return etc;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public StudioStatus getStatus() {
+		return status;
 	}
 }
