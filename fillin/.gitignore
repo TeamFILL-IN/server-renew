@@ -41,3 +41,6 @@ out/
 **/.gradle/**
 **/gradle/**
 .idea/**
+
+### secret
+**/resources/secret
