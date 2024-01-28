@@ -13,6 +13,10 @@ public class ReactionId {
 		this.targetNo = targetNo;
 	}
 
+	public long getTargetNo() {
+		return targetNo;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(type, targetNo);
