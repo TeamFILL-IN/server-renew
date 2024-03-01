@@ -2,7 +2,6 @@ package com.teamfillin.fillin.domain.user;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
@@ -18,7 +17,7 @@ public class UserRegister {
 		this.userRepository = userRepository;
 	}
 
-	@Transactional(propagation = Propagation.MANDATORY)
+	@Transactional
 	public User registerUser() {
 		final String randomNickname = generateRandomNickname();
 		final UserEntity registeredUserEntity = userRepository.save(UserEntity.createActive(randomNickname));

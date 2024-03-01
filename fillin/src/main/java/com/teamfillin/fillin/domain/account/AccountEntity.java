@@ -71,7 +71,7 @@ public class AccountEntity {
 		return refreshToken;
 	}
 
-	public Long getUserNo() {
+	public long getUserNo() {
 		return userNo;
 	}
 

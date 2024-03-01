@@ -1,4 +1,4 @@
-package com.teamfillin.fillin.domain.account.token;
+package com.teamfillin.fillin.api.token.jwt;
 
 import java.time.Instant;
 import java.util.Date;
@@ -8,9 +8,12 @@ import javax.crypto.SecretKey;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.stereotype.Component;
 
 import com.google.common.collect.Maps;
+import com.teamfillin.fillin.api.token.AccessToken;
+import com.teamfillin.fillin.api.token.TokenConfiguration;
+import com.teamfillin.fillin.api.token.TokenHandler;
+import com.teamfillin.fillin.api.token.TokenType;
 import com.teamfillin.fillin.domain.account.AccountAccessResult;
 import com.teamfillin.fillin.domain.account.SocialType;
 
@@ -20,8 +23,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
-@Component
-public class JwtTokenHandler {
+public class JwtTokenHandler implements TokenHandler {
 	private static final String CLAIM_SOCIAL_TYPE = "socialType";
 	private static final String CLAIM_ACCOUNT_NO = "accountNo";
 	private static final String CLAIM_USER_NO = "userNo";
@@ -34,6 +36,7 @@ public class JwtTokenHandler {
 		this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtTokenProperties.getSecret()));
 	}
 
+	@Override
 	public AccessToken generateAccessTokenFrom(@NotNull AccountAccessResult accountAccessResult) {
 		final SocialType socialType = accountAccessResult.getSocialType();
 		final long accountNo = accountAccessResult.getAccountNo();

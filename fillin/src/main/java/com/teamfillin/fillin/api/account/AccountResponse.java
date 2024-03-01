@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.teamfillin.fillin.domain.account.AccountAccessResult;
 import com.teamfillin.fillin.domain.account.SocialType;
-import com.teamfillin.fillin.domain.account.token.AccessToken;
+import com.teamfillin.fillin.api.token.AccessToken;
 
 import lombok.AccessLevel;
 import lombok.Builder;

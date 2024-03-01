@@ -4,17 +4,13 @@ import org.jetbrains.annotations.NotNull;
 
 import com.teamfillin.fillin.domain.user.User;
 
-public class AccountAndUserResult {
+public class AccountAndUser {
 	private final Account account;
 	private final User user;
 
-	private AccountAndUserResult(Account account, User user) {
+	AccountAndUser(@NotNull final Account account, @NotNull final User user) {
 		this.account = account;
 		this.user = user;
-	}
-
-	public static AccountAndUserResult of(@NotNull Account account, @NotNull User user) {
-		return new AccountAndUserResult(account, user);
 	}
 
 	@NotNull

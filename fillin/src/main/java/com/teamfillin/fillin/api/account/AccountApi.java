@@ -7,34 +7,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.teamfillin.fillin.api.FillinApiResponse;
+import com.teamfillin.fillin.api.token.AccessToken;
+import com.teamfillin.fillin.api.token.TokenHandler;
 import com.teamfillin.fillin.domain.account.AccountAccessResult;
+import com.teamfillin.fillin.domain.account.AccountCreateCommand;
 import com.teamfillin.fillin.domain.account.AccountService;
-import com.teamfillin.fillin.domain.account.SocialType;
-import com.teamfillin.fillin.domain.account.token.AccessToken;
-import com.teamfillin.fillin.domain.account.token.JwtTokenHandler;
 
 @RestController
 public class AccountApi {
 	private final AccountService accountService;
-	private final JwtTokenHandler jwtTokenHandler;
+	private final TokenHandler tokenHandler;
 
 	public AccountApi(
 		AccountService accountService,
-		JwtTokenHandler jwtTokenHandler
+		TokenHandler tokenHandler
 	) {
 		this.accountService = accountService;
-		this.jwtTokenHandler = jwtTokenHandler;
+		this.tokenHandler = tokenHandler;
 	}
 
 	@PostMapping("/auth")
 	public ResponseEntity<FillinApiResponse> loginOrJoin(
 		@RequestBody AccountRequest accountRequest
 	) {
-		final SocialType socialType = accountRequest.getSocial();
-		final String idKey = accountRequest.getIdKey();
+		final AccountCreateCommand command = new AccountCreateCommand(
+			accountRequest.getSocial(),
+			accountRequest.getIdKey()
+		);
 
-		final AccountAccessResult accountAccessResult = accountService.loginOrJoin(socialType, idKey);
-		final AccessToken accessToken = jwtTokenHandler.generateAccessTokenFrom(accountAccessResult);
+		final AccountAccessResult accountAccessResult = accountService.loginOrJoin(command);
+		final AccessToken accessToken = tokenHandler.generateAccessTokenFrom(accountAccessResult);
 
 		return switch (accountAccessResult.getProcedure()) {
 			case JOIN ->

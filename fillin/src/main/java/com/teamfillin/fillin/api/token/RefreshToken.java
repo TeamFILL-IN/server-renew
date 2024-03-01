@@ -1,4 +1,4 @@
-package com.teamfillin.fillin.domain.account.token;
+package com.teamfillin.fillin.api.token;
 
 import java.util.Objects;
 
